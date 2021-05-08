@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="public/CSS/home_style.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm fixed-top navbar-light">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#" class="navbar-brand mr-auto"><img src="public/img/logo.png" alt="Health-e-Locker" height="35" width="60"><span class="text-white"> Health-E-Locker</span></a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <nav class="navbar-nav">
+                    <a href="/home" class="nav-link text-white">Home</a>
+                    <a href="/tutorial" class="nav-link text-white">User Guide</a>
+                    <a href="#" class="nav-link text-white">Contact us</a>
+                   <a href="/login">
+                        <button class="btn btn-dark m-auto" type="button">Login</button>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </nav>
+<div class="container">
+
+    <div class="row row-content">
+       <div class="col-12">
+          <h3>Location Information</h3>
+       </div>
+        <div class="col-12 col-sm-4 offset-sm-1">
+               <h5>Our Address</h5>
+                <address style="font-size: 100%">
+                  Vellore Institute of Tecjnology<br>
+                  Vellore, TN<br>
+                  India<br>
+                  <i class="fa fa-phone"></i>: +91 6370064979<br>
+                    <a href="mailto:confusion@food.net">healthelocker@gmail.com</a>
+               </address>
+        </div>
+        <div class="col-12 col-sm-6 offset-sm-1">
+            <!-- <h5>Map of our Location</h5> -->
+        </div>
+        <div class="col-12 col-sm-11 offset-sm-1">
+            <div class="btn-group" role="group">
+                <a class="btn btn-primary" role="button" href="tel:+85212345678"><i class="fa fa-phone"></i>Call</a>
+                <a class="btn btn-info" role="button" href="#"><i class="fa fa-skype"></i> Skype</a>
+                <a class="btn btn-success" role="button" href="mailto:confusion@food.net"><i class="fa fa-envelope"></i> Mail</a>                                    
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-content">
+       <div class="col-12">
+          <h3>Send us your Feedback</h3>
+       </div>
+        <div class="col-12 col-md-9">
+            <form action="/contactus" method="POST">
+                <div class="form-group row">
+                    <label for="firstname" class="col-12 col-md-2 col-form-label">First Name</label>
+                    <div class="col-12 col-md-10">
+                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastname" class="col-12 col-md-2 col-form-label">Last Name</label>
+                    <div class="col-12 col-md-10">
+                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="telnum" class="col-12 col-md-2 col-form-label">Contact Tel.</label>
+                    <div class="col-5 col-md-3">
+                        <input type="text" class="form-control" placeholder="Area Code" name="areacode" id="areacode">
+                    </div>
+                    <div class="col-7 col-md-7">
+                        <input type="tel" id="telnum" name="telnum" class="form-control" placeholder="Tel. Number" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-12 col-md-2 col-form-label">Email</label>
+                    <div class="col-12 col-md-10">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-6 offset-md-2"> 
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="approve" id="approve" value="">
+                            <label for="approve" class="form-check-label"><strong>May we contact you?</strong></label>
+                        </div>                                              
+                    </div>
+                    <div class="col-12 col-md-3 offset-md-1">
+                        <select class="form-control">
+                            <option value="">Tel.</option>
+                            <option value="">Email</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="desc" class="col-12 col-md-2 col-form-label">Your Feedback</label>
+                    <div class="col-12 col-md-10">
+                        <textarea name="desc" id="desc" cols="50" rows="12" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 col-md-10 offset-md-2">
+                        <button type="submit" class="btn btn-dark">
+                            Send Feedback
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+         <div class="col-12 col-md">
+        </div>
+   </div>
+
+</div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <script src="/jquery/dist/jquery.slim.min.js"></script>
+    <script src="/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
