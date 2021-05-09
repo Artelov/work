@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
 	"net/http"
@@ -12,7 +13,7 @@ import (
 const (
 	host     = "localhost"
 	port     = 5432
-	user     = "postgres"
+	user     = "pooja"
 	password = "pooja"
 	dbname   = "hpe"
 )
@@ -112,23 +113,26 @@ func addImmuprocess(w http.ResponseWriter, r *http.Request) {
 		bk.Date = r.FormValue("date")
 		bk.Note = r.FormValue("note")
 		bk.file_name = r.FormValue("file")
-		file, handler, err := r.FormFile("myFile")
+		file, handler, err := r.FormFile("file")
 		if err != nil {
 			fmt.Println("Error Retrieving the File")
 			fmt.Println(err)
 			return
 		}
+		defer file.Close()
 		fmt.Printf("Uploaded File: %+v\n", handler.Filename)
 		fmt.Printf("File Size: %+v\n", handler.Size)
 		fmt.Printf("MIME Header: %+v\n", handler.Header)
-		fileInfo, _ := file.Stat()
-		var size int64 = fileInfo.Size()
+		var size int64 = handler.Size
 		bytes := make([]byte, size)
 		buffer := bufio.NewReader(file)
 		_, err = buffer.Read(bytes)
+		fmt.Println("printing bytes")
+		fmt.Println(bytes)
 
-		_, err := db.Exec("INSERT INTO Immu(Vaccine, Protection,Date,Note,file_name,file_data) VALUES($1,$2,$3,$4,$5)", bk.Vaccine, bk.Protection, bk.Date, bk.Note, bk.file_name, bytes)
+		_, err = db.Exec("INSERT INTO Immu(Vaccine, Protection,Date,Note,file_name,file_data) VALUES($1,$2,$3,$4,$5,$6)", bk.Vaccine, bk.Protection, bk.Date, bk.Note, bk.file_name, bytes)
 		if err != nil {
+			fmt.Println(err)
 			http.Error(w, "Server error, unable to create your account.", 500)
 			return
 		}
