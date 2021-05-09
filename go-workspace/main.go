@@ -13,8 +13,8 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "your_password"
-	dbname   = "db_name"
+	password = "pooja"
+	dbname   = "hpe"
 )
 
 var tpl *template.Template
@@ -48,6 +48,7 @@ func main() {
 	http.HandleFunc("/addMedication", addMedication)
 	http.HandleFunc("/addSymptom", addSymptom)
 	http.HandleFunc("/addImmu", addImmu)
+	http.HandleFunc("/addImmu/process", addImmuprocess)
 	http.HandleFunc("/contactus", contactus)
 	http.HandleFunc("/signup", signup)
 	http.HandleFunc("/signup/process", signupprocess)
@@ -55,7 +56,7 @@ func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/logout", logout)
 	http.HandleFunc("/tutorial", tutorial)
-	http.ListenAndServe(":1000", nil)
+	http.ListenAndServe(":200", nil)
 }
 
 type Users struct {
@@ -91,6 +92,50 @@ func signupprocess(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("User created!"))
 	return
 
+}
+
+type Immu struct {
+	Vaccine    string
+	Protection string
+	Date       string
+	Note       string
+	file_name  string
+	file_data  []byte
+}
+
+func addImmuprocess(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+
+		bk := Immu{}
+		bk.Vaccine = r.FormValue("vaccine")
+		bk.Protection = r.FormValue("protection")
+		bk.Date = r.FormValue("date")
+		bk.Note = r.FormValue("note")
+		bk.file_name = r.FormValue("file")
+		file, handler, err := r.FormFile("myFile")
+		if err != nil {
+			fmt.Println("Error Retrieving the File")
+			fmt.Println(err)
+			return
+		}
+		fmt.Printf("Uploaded File: %+v\n", handler.Filename)
+		fmt.Printf("File Size: %+v\n", handler.Size)
+		fmt.Printf("MIME Header: %+v\n", handler.Header)
+		fileInfo, _ := file.Stat()
+		var size int64 = fileInfo.Size()
+		bytes := make([]byte, size)
+		buffer := bufio.NewReader(file)
+		_, err = buffer.Read(bytes)
+
+		_, err := db.Exec("INSERT INTO Immu(Vaccine, Protection,Date,Note,file_name,file_data) VALUES($1,$2,$3,$4,$5)", bk.Vaccine, bk.Protection, bk.Date, bk.Note, bk.file_name, bytes)
+		if err != nil {
+			http.Error(w, "Server error, unable to create your account.", 500)
+			return
+		}
+
+	}
+	http.Redirect(w, r, "/", 301)
+	w.Write([]byte("Done uploaded to your activity"))
 }
 func loginprocess(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
@@ -136,6 +181,7 @@ func addImmu(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "addImmu.gohtml", nil)
 	fmt.Println(err)
 }
+
 func addMedication(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "addMedication.gohtml", nil)
 	fmt.Println(err)
